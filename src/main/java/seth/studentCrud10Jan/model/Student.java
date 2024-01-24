@@ -19,9 +19,12 @@ public class Student {
     private int age;
     private String address;
     private String email;
-    private String password;
 
     // Constructors, getters, and setters
 
     // ...
+
+    @Column(unique = true)
+    private String username;
+    private String password;
 }

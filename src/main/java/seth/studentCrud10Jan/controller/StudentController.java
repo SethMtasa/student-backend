@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import seth.studentCrud10Jan.dto.StudentDto;
+import seth.studentCrud10Jan.dto.StudentRegistrationDto;
 import seth.studentCrud10Jan.dto.StudentResponseDto;
 import seth.studentCrud10Jan.service.StudentService;
 
@@ -26,6 +27,15 @@ public class StudentController {
         return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<StudentResponseDto> registerStudent(@RequestBody StudentRegistrationDto registrationDto) {
+        // Delegate the registration logic to the StudentService
+        StudentResponseDto responseDto = studentService.registerStudent(registrationDto);
+
+        // Return a ResponseEntity with the response DTO and a status code
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+
+}
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponseDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) {
         StudentResponseDto updatedStudent = studentService.updateStudent(id, studentDto);
