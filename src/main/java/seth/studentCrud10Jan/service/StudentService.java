@@ -1,15 +1,14 @@
 package seth.studentCrud10Jan.service;
 
 import seth.studentCrud10Jan.dto.StudentDto;
+import seth.studentCrud10Jan.dto.StudentResponseDto;
 
 import java.util.List;
 
 public interface StudentService {
-    StudentDto createStudent(StudentDto studentDto);
-    StudentDto updateStudent(Long id, StudentDto studentDto);
+    StudentResponseDto createStudent(StudentDto studentDto);
+    StudentResponseDto getStudentById(Long id);
+    StudentResponseDto updateStudent(Long id, StudentDto studentDto);
     void deleteStudent(Long id);
-    StudentDto getStudentById(Long id);
-    List<StudentDto> getAllStudents();
-
-    // ...
+    List<StudentResponseDto> getAllStudents();
 }

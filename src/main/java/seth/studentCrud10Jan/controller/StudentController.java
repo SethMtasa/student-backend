@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import seth.studentCrud10Jan.dto.StudentDto;
+import seth.studentCrud10Jan.dto.StudentResponseDto;
 import seth.studentCrud10Jan.service.StudentService;
 
 import java.util.List;
@@ -20,14 +21,14 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<StudentDto> createStudent(@RequestBody StudentDto studentDto) {
-        StudentDto createdStudent = studentService.createStudent(studentDto);
+    public ResponseEntity<StudentResponseDto> createStudent(@RequestBody StudentDto studentDto) {
+        StudentResponseDto createdStudent = studentService.createStudent(studentDto);
         return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) {
-        StudentDto updatedStudent = studentService.updateStudent(id, studentDto);
+    public ResponseEntity<StudentResponseDto> updateStudent(@PathVariable Long id, @RequestBody StudentDto studentDto) {
+        StudentResponseDto updatedStudent = studentService.updateStudent(id, studentDto);
         if (updatedStudent != null) {
             return ResponseEntity.ok(updatedStudent);
         }
@@ -41,8 +42,8 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDto> getStudentById(@PathVariable Long id) {
-        StudentDto student = studentService.getStudentById(id);
+    public ResponseEntity<StudentResponseDto> getStudentById(@PathVariable Long id) {
+        StudentResponseDto student = studentService.getStudentById(id);
         if (student != null) {
             return ResponseEntity.ok(student);
         }
@@ -51,8 +52,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StudentDto>> getAllStudents() {
-        List<StudentDto> students = studentService.getAllStudents();
+    public ResponseEntity<List<StudentResponseDto>> getAllStudents() {
+        List<StudentResponseDto> students = studentService.getAllStudents();
         return ResponseEntity.ok(students);
     }
 }
