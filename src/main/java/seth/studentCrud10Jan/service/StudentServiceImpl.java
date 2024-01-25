@@ -100,4 +100,28 @@ public class StudentServiceImpl implements StudentService {
         // You can throw appropriate exceptions or handle validation errors accordingly
     }
 
+
+    @Override
+    public boolean validateLoginCredentials(String username, String password) {
+        // Retrieve the user from the database based on the provided username
+        User user = userRepository.findByUsername(username);
+
+        // Check if a user with the provided username exists and if the password matches
+        if (user != null && password.equals(user.getPassword())) {
+            return true; // Credentials are valid
+        }
+
+        return false; // Credentials are invalid
+    }
+
+
+    @Override
+    public boolean checkIfUserExists(String username) {
+        // Implement the logic to check if the user exists in the database
+        // Return true if the user exists, false otherwise
+
+        // Example implementation using a UserRepository assuming you have a User entity and a UserRepository interface:
+        User user = userRepository.findByUsername(username);
+        return user != null;
+    }
 }

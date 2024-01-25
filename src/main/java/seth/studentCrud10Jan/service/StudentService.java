@@ -13,5 +13,8 @@ public interface StudentService {
     void deleteStudent(Long id);
     List<StudentResponseDto> getAllStudents();
 
+    public boolean checkIfUserExists(String username);
+    boolean validateLoginCredentials(String username, String password);
+
     StudentResponseDto registerStudent(StudentRegistrationDto registrationDto);
 }

@@ -2,16 +2,16 @@ package seth.studentCrud10Jan.controller;
 
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import seth.studentCrud10Jan.dto.StudentDto;
-import seth.studentCrud10Jan.dto.StudentRegistrationDto;
-import seth.studentCrud10Jan.dto.StudentResponseDto;
+import seth.studentCrud10Jan.dto.*;
 import seth.studentCrud10Jan.service.StudentService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/students")
 public class StudentController {
@@ -26,6 +26,31 @@ public class StudentController {
         StudentResponseDto createdStudent = studentService.createStudent(studentDto);
         return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
+
+        // ...
+
+        @PostMapping("/login")
+        public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequest) {
+            // Validate the login credentials
+            boolean isValidCredentials = studentService.validateLoginCredentials(loginRequest.getUsername(), loginRequest.getPassword());
+
+            if (isValidCredentials) {
+                // Authentication granted
+                log.info("ssssssssssssssss Successful login for username: {}", loginRequest.getUsername());
+                return ResponseEntity.ok().build();
+            } else {
+                // Authentication failed
+                boolean userExists = studentService.checkIfUserExists(loginRequest.getUsername());
+
+                if (userExists) {
+                    log.warn("fffffffffffffff Failed login for username: {}", loginRequest.getUsername());
+                    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+                } else {
+                    log.warn("uuuuuuuuuuuuuuuu User not found for username: {}", loginRequest.getUsername());
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+                }
+            }
+        }
 
     @PostMapping("/register")
     public ResponseEntity<StudentResponseDto> registerStudent(@RequestBody StudentRegistrationDto registrationDto) {
